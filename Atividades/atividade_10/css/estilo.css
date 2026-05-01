@@ -46,7 +46,8 @@ h1 {
     font-family: Lobster;
     font-size: 90px;
 }
-}nav {
+
+nav {
     width: 75%;
     background-color: #000;
     display: flex;
@@ -71,6 +72,10 @@ ul li {
     margin-bottom: -15px;
 }
 
+aside{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 aside {
     width: 20%;
     height: 100vh;
@@ -87,11 +92,11 @@ aside {
     font-size: 40px;
 }
 
-.trending-caster {
+.trending-caster, .just-for-you{
     margin: 20px 0px;
 }
 
-.trending-caster img {
+.trending-caster img .just-for-you img {
     float: left;
     margin-right: 15px;
     width: 38px;
