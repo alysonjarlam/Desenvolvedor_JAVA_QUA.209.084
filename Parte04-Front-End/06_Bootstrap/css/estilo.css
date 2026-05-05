@@ -1,0 +1,12 @@
+.bg-pink{
+    background-color: #f0f;
+}
+
+.br-verde-oliva {
+    background-image: linear-gradient(to rigth bottom, #090, #020);
+}
+
+.log{
+    width: 56;
+    margin: -5px 0px;
+}
