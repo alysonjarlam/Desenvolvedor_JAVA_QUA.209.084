@@ -5,7 +5,7 @@ const maskCep = document.querySelector("#cep");
 
 //máscaras de entrada
 
-maskCpf.addEventListener('input', function(){
+maskCpf.addEventListener('input', function() {
     this.value = this.value.replace(/\D/g, '')
     .replace(/(\d{3})(\d)/, '$1.$2')
     .replace(/(\d{3})(\d)/, '$1.$2')
@@ -13,7 +13,7 @@ maskCpf.addEventListener('input', function(){
     
 });
 
-maskTel.addEventListener('input', function(){
+maskTel.addEventListener('input', function() {
    this.value = this.value.replace(/\D/g,'')
    .replace(/(\d{2})(\d)/, '($1) $2')
    .replace(/(\d{4,5})(\d)/, '$1 $2')
@@ -21,10 +21,11 @@ maskTel.addEventListener('input', function(){
 
 });
 
-maskCep.addEventListener('input', function () {
+maskCep.addEventListener('input', function() {
     this.value = this.value.replace(/\D/g, '')
     .replace(/(\d{5})(\d)/, '$1-$2')
     .replace(/(-\d{3})\d+?$/, '$1');
+
 });
 
 
