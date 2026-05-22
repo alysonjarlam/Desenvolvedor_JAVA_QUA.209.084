@@ -3,10 +3,10 @@ package com.crud.javalanches.models;
 import java.time.LocalDate;
 
 import jakarta.persistence.Column; //@Collumn
-import jakarta.persistence.Entity; // veio do strategy = GenerationType.AUTO
+import jakarta.persistence.Entity; // @Entity
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.Id; //@Id
 // para criar classe, ela sempre deve iniciar com letra maiuscula
 @Entity
 public class Cliente {
@@ -21,7 +21,7 @@ public class Cliente {
     private String cpf;
     @Column(nullable = false, unique = true)
     private String email;
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, length = 16)
     private String telefone;
     @Column(nullable = false)
     private LocalDate datadeNascimento;
