@@ -19,7 +19,7 @@ public class Categoria {
     @Column(unique = true,nullable = false)
     private String nomeCategoria;
 
-    @OneToMany(mappedBy = "Categoria") // vai haver relacionamento de 1 para muitos.
+    @OneToMany(mappedBy = "categoria") // vai haver relacionamento de 1 para muitos.
     private List<Produto> produtos = new ArrayList<>();
 
     public Categoria() {

@@ -1,12 +1,19 @@
 package com.crud.javalanches.models;
 
-import java.time.LocalDate;
+import java.time.LocalDate; //private LocalDate
+import java.util.ArrayList; //new ArrayList
+import java.util.List; // private List
+
 
 import jakarta.persistence.Column; //@Collumn
 import jakarta.persistence.Entity; // @Entity
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id; //@Id
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany; //@OneToMany
 // para criar classe, ela sempre deve iniciar com letra maiuscula
 @Entity
 public class Cliente {
@@ -25,6 +32,13 @@ public class Cliente {
     private String telefone;
     @Column(nullable = false)
     private LocalDate datadeNascimento;
+
+    @OneToMany(mappedBy = "cliente")
+    private List<Pedido> pedidos = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(name = "Cliente_endereco", joinColumns = @JoinColumn(name = "Cliente_id"), inverseJoinColumns = @JoinColumn(name = "endereco_id"))
+    private List<Endereco> enderecos = new ArrayList<>();
 
 
     // constructor
@@ -78,4 +92,21 @@ public class Cliente {
     public void setDatadeNascimento(LocalDate datadeNascimento) {
         this.datadeNascimento = datadeNascimento;
     }
+
+    public List<Pedido> getPedidos() {
+        return this.pedidos;
+    }
+
+    public void setPedidos(List<Pedido> pedidos) {
+        this.pedidos = pedidos;
+    }
+
+    public List<Endereco> getEnderecos() {
+        return this.enderecos;
+    }
+
+    public void setEnderecos(List<Endereco> enderecos) {
+        this.enderecos = enderecos;
+    }
+
 }
