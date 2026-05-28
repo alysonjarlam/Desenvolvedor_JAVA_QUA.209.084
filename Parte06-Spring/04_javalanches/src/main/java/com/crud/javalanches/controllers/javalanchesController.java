@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.crud.javalanches.models.Categoria;
 import com.crud.javalanches.repository.CategoriaRepository;
 
+import ch.qos.logback.core.model.Model;
+
 @Controller
 public class javalanchesController {
     @Autowired
@@ -27,6 +29,11 @@ public class javalanchesController {
     public String novaCategoria(Categoria categoria) {
         categoriaRepository.save(categoria);
         return "categoria_sucesso";
-        
+
+    }
+    @GetMapping("/novoProduto")
+    public String novoProduto(Model model ) {
+        model.addAttribute("Categoria", categoriaRepository.findAll());
+        return "novo_produto";
     }
 }
