@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="https://www.thymeleaf.org" th:replace="~{fragments/layout :: main-layout(~{::title}, ~{::main})}">
+<head>
+    
+    <title>Javalanches - Cardapio</title>
+</head>
+<body>
+    <main>
+        <h1>Cardápio</h1>
+        <hr>
+        <div class="row">
+            <div class="col-12">
+                <div th:if="${categoria.empty}">
+                    <div class="alert alert-warming">Nenhuma categoria encontrada.
+
+                    </div>
+                </div>
+                <div th:each="categoria: ${categoria}">
+                    <div class="card mb-4">
+                        <div class="card-header bg-secundary text-white">
+                            <strong>
+                                <span th:text="${categoria.codigoCategoria}"></span>
+                                .
+                                <span th:text="${categoria.nomeCategoria.toUpperCase()}"></span>
+                            </strong>
+                        </div>
+                        <div class="card-body">
+                            <div th:if="${#ListEmpty(categoria.Produtos)}>
+                                <p>Nenhum produto cadastrado nessa categoria.</p>
+                            </div>
+                            <div th:unless="${#lists.isEmpty(categoria.Produtos)}">
+
+                                <div class="list-group">
+                                    <div th:each="produto: ${categoria.Produtos} class=list-group-item mb-3">
+                                        <p class="mb-1" fw-semibold>
+                                        <span th:text="${categoria.Produtos}"></span>
+                                        <span> - </span>
+                                        <span th:text="${categoria.Produtos}"></span>
+                                        <span>: R$: </span>
+                                        <span th:text="${categoria.Produtos}"></span>
+                                    </p>
+                                    <p class="mb-0 text-muted" th:text="${produto.descricaoProduto != null and !#strings.isEmpty(produto.descricaoProduto) ? produto.descricaoProduto : 'Produto sem descrição.'}">
+
+                                    </p>                                    
+                                </div>                            
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </main>
+    
+</body>
+</html>

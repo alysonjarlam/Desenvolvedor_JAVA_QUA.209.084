@@ -7,11 +7,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.crud.javalanches.models.Categoria;
+import com.crud.javalances.models.Endereco;
 import com.crud.javalanches.models.Produto;
+import com.crud.javalances.models.Cliente;
 import com.crud.javalanches.repository.CategoriaRepository;
+import com.crud.javalances.repository.EnderecoRepository;
+import com.crud.javalances.repository.ClienteRepository;
 import com.crud.javalanches.repository.ProdutoRepository;
 
-import ch.qos.logback.core.model.Model;
 
 @Controller
 public class javalanchesController {
@@ -19,7 +22,7 @@ public class javalanchesController {
     private CategoriaRepository categoriaRepository;
 
     @Autowired
-    private ProdutoRepository
+    private ProdutoRepository produtoRepository;
 
     @GetMapping("/")
     public String index() {
@@ -48,5 +51,25 @@ public class javalanchesController {
         produto.setCategoria(categoria);
         produtoRepository.save(produto);
         return "produto_sucesso"
+    }
+
+    @GetMapping("listarProdutos")
+    public String listarProdutos(Model model) {
+        model.AddAtribute("categorias", categoriaRepository.findAll());
+        return "listar_produtos";
+    }
+    @GetMapping("/novoCliente")
+    public String novoCliente() {
+        return "novo_cliente";
+    }    
+
+     @PostMapping("/novoCliente")
+    public String novoCliente(Cliente cliente, Endereco endereco) {
+        cliente.getEnderecos().add(endereco);
+        endereco.getClientes().add(cliente);
+
+        enderecoRepository.save(endereco);
+        clienteRepository.save(cliente);
+        return "cliente_sucesso";
     }
 }
