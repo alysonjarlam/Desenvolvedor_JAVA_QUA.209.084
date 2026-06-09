@@ -36,6 +36,8 @@ public class Cliente {
     @OneToMany(mappedBy = "cliente")
     private List<Pedido> pedidos = new ArrayList<>();
 
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+
     @ManyToMany
     @JoinTable(name = "Cliente_endereco", joinColumns = @JoinColumn(name = "Cliente_id"), inverseJoinColumns = @JoinColumn(name = "endereco_id"))
     private List<Endereco> enderecos = new ArrayList<>();

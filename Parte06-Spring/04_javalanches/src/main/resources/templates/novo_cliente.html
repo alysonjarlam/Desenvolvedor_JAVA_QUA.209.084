@@ -2,8 +2,7 @@
 <html
   lang="pt-br"
   xmlns:th="https://www.thymeleaf.org"
-  th:replace="~{fragments/layout :: main-layout(~{::title}, ~{::main})}"
->
+  th:replace="~{fragments/layout :: main-layout(~{::title}, ~{::main})}">
   <head>
     <title>Javalanches - Cadastrar novo cliente</title>
     <style>
@@ -97,7 +96,7 @@
               type="text"
               id="cpf"
               name="cpf"
-              class="form-control"
+              class="form-control" maxlength="14"
               required
             />
           </div>
