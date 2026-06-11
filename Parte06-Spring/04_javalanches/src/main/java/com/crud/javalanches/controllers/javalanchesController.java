@@ -1,6 +1,13 @@
 package com.crud.javalanches.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageble;
+import org.springframework.data.domain.Sort;
+import org.springframework.ui.Model;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +30,13 @@ public class javalanchesController {
 
     @Autowired
     private ProdutoRepository produtoRepository;
+
+    @Autowired
+    private ClienteRepository clienteRepository;
+
+    @Autowired
+    private EnderecoRepository enderecoRepository;
+
 
     @GetMapping("/")
     public String index() {
@@ -53,11 +67,21 @@ public class javalanchesController {
         return "produto_sucesso"
     }
 
-    @GetMapping("listarProdutos")
+    @GetMapping("/listarProdutos")
     public String listarProdutos(Model model) {
         model.AddAtribute("categorias", categoriaRepository.findAll());
         return "listar_produtos";
     }
+      @GetMapping("/listarClientes")
+    public String listarClientes(Model model, @RequestParam(defaultValue = "0") int pagina) {
+        Pageable pageable = PageRequest.of(pagina, 50, Sort.by("codigoCliente").ascending());
+        Page<Cliente> clientes = clienteRepository.findAll(pageable);
+
+        model.addAttribute("clientes", clientes);
+        model.addAttribute("paginaAtual", pagina);
+        return "listar_clientes";
+    }
+
     @GetMapping("/novoCliente")
     public String novoCliente() {
         return "novo_cliente";
@@ -71,5 +95,18 @@ public class javalanchesController {
         enderecoRepository.save(endereco);
         clienteRepository.save(cliente);
         return "cliente_sucesso";
+    }
+    // FIXME: postmapping está cadastrando nova categoria, mas não está atualizando.
+    @GetMapping("/atualizarCategoria")
+    public String atualizarCategoria(@RequestParam("codigoCategoria")Long codigoCategoria, Model model){
+        Categoria categoria = categoriaRepository.findById(CodigoCategoria).orElse(null);
+        model.addAttribute("categora", categoria);
+        return "atualizar_categoria";
+    }
+
+    @PostMapping("/atualizarCategoria")
+    public String atualizarCategoria(Categoria categoria){
+        categoriaRepository.save(categoria);
+        return "atualizar_categoria_sucesso";
     }
 }
