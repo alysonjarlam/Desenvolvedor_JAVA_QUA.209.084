@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageble;
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.controller;
 import org.springframework.ui.Model;
 
 import org.springframework.stereotype.Controller;
@@ -95,6 +96,71 @@ public class javalanchesController {
         enderecoRepository.save(endereco);
         clienteRepository.save(cliente);
         return "cliente_sucesso";
+    }
+
+     @GetMapping("/atualizarCliente")
+    public String atualizarCliente(@RequestParam("codigoCliente") Long codigoCliente, Model model) {
+        Cliente cliente = clienteRepository.findById(codigoCliente).orElse(null);
+        if (cliente == null) {
+            return "redirect:/listarClientes";
+        }
+        model.addAttribute("cliente", cliente);
+        return "atualizar_cliente";
+    }
+
+    @PostMapping("/atualizarCliente")
+    public String atualizarCliente(Cliente cliente) {
+        clienteRepository.save(cliente);
+        return "atualizar_cliente_sucesso";
+    }
+
+    @GetMapping("/atualizarEndereco")
+    public String atualizarEndereco(@RequestParam("codigoEndereco") Long codigoEndereco,
+            @RequestParam("codigoCliente") Long codigoCliente, Model model) {
+        Endereco endereco = enderecoRepository.findById(codigoEndereco).orElse(null);
+        Cliente cliente = clienteRepository.findById(codigoCliente).orElse(null);
+
+        if (endereco == null || cliente == null) {
+            return "redirect:/listarClientes";
+        }
+
+        model.addAttribute("endereco", endereco);
+        model.addAttribute("cliente", cliente);
+        return "atualizar_endereco";
+    }
+
+    @PostMapping("/atualizarEndereco")
+    public String atualizarEndereco(Endereco endereco) {
+        enderecoRepository.save(endereco);
+        return "atualizar_endereco_sucesso";
+    }
+
+    @GetMapping("/novoEndereco")
+    public String novoEndereco(@RequestParam("codigoCliente") Long codigoCliente, Model model) {
+        Cliente cliente = clienteRepository.findById(codigoCliente).orElse(null);
+
+        if (cliente == null) {
+            return "redirect:/listarClientes";
+        }
+
+        model.addAttribute("cliente", cliente);
+        return "novo_endereco";
+    }
+
+    @PostMapping("/novoEndereco")
+    public String novoEndereco(Endereco endereco, @RequestParam("codigoCliente") Long codigoCliente) {
+        Cliente cliente = clienteRepository.findById(codigoCliente).orElse(null);
+
+        if (cliente == null) {
+            return "redirect:/listarClientes";
+        }
+
+        cliente.getEnderecos().add(endereco);
+        endereco.getClientes().add(cliente);
+
+        enderecoRepository.save(endereco);
+        clienteRepository.save(cliente);
+        return "endereco_sucesso";
     }
     
     @GetMapping("/atualizarCategoria")
