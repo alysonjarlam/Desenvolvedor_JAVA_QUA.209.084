@@ -25,7 +25,7 @@
                             </strong>
                         </div>
                         <div class="card-body">
-                            <div th:if="${#ListEmpty(categoria.Produtos)}>
+                            <div th:if="${#ListEmpty(categoria.Produtos)}">
                                 <p>Nenhum produto cadastrado nessa categoria.</p>
                             </div>
                             <div th:unless="${#lists.isEmpty(categoria.Produtos)}">
@@ -35,7 +35,7 @@
                                         <p class="mb-1" fw-semibold>
                                         <span th:text="${categoria.Produtos}"></span>
                                         <span> - </span>
-                                        <span th:text="${categoria.Produtos}"></span>
+                                        <a th:href="@{/atualizarProduto(codigoProduto=${produto.codigoProduto})}" th:text="${categoria.Produtos}"></a>
                                         <span>: R$: </span>
                                         <span th:text="${categoria.Produtos}"></span>
                                     </p>

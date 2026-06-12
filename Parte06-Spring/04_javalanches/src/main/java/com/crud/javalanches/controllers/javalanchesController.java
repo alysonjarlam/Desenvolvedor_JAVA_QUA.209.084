@@ -96,7 +96,7 @@ public class javalanchesController {
         clienteRepository.save(cliente);
         return "cliente_sucesso";
     }
-    // FIXME: postmapping está cadastrando nova categoria, mas não está atualizando.
+    
     @GetMapping("/atualizarCategoria")
     public String atualizarCategoria(@RequestParam("codigoCategoria")Long codigoCategoria, Model model){
         Categoria categoria = categoriaRepository.findById(CodigoCategoria).orElse(null);
@@ -109,4 +109,19 @@ public class javalanchesController {
         categoriaRepository.save(categoria);
         return "atualizar_categoria_sucesso";
     }
+    @GetMapping("/atualizarProduto")
+    public String atualizarProduto(@RequestParam("codigoProduto")long codigoProduto, Moddel model){
+        produto produto = produtoRepository.findId(codigoProduto).orElse(null);
+        model.addAttribute("produto", produto);
+        model.addAttribute("categoria", categoriaRepository.findAll());
+        return "atualizar_produto";
+    }
+    @PostMapping("/atualizarProduto")
+    public String atualizarProduto(produto produto, @RequestParam("codigoProduto")Long categoria{
+        Categoria categoria = categoriaRepository.findById(categoriaId).orElse(null);
+        produto.setCategoria(categoria);
+        produtoRepository.save(produto);
+        return "atualizar_produto_sucesso"
+    })
+
 }
