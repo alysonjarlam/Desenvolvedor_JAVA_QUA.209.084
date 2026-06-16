@@ -188,6 +188,21 @@ public class javalanchesController {
         produto.setCategoria(categoria);
         produtoRepository.save(produto);
         return "atualizar_produto_sucesso"
-    })
+    }
+    @GetMapping("/deletarProduto")
+    public String deletarProduto(@RequestParam("codigoProduto")Long codigoProduto){
+        produtoRepository.deletById(codigoProduto);
+        return "redirect:/listarProdutos";
+    }
+    @GetMapping("/deletarCategoria")
+    public String deletarCategoria(@RequestParam("codigoCategoria")Long codigoCategoria){
+        Categoria categoria = categiriaRepository.findById(codigoCategoria).
+        orElse(null);
+        if (categoria != null) {
+            produtoRepository.deletAll(categoria.getProdutos());
+            categoriaRepository.deletById(codigoCategoria);
+        }
+        return "redirect:/listarProdutos";
+    }
 
 }

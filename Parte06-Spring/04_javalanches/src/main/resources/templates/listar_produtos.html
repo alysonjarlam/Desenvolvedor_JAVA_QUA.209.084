@@ -21,8 +21,9 @@
                             <strong>
                                 <span th:text="${categoria.codigoCategoria}"></span>
                                 .
-                                <a class="text-white text-decoration-none" th:href="@/atualizarCategoria(codigoCategoria=${categoria.codigoCategoria})}" th:text=${categoria.nomeCategoria.toUpperCase()}"></a>
+                                <a class="text-white text-decoration-none" th:href="@{/atualizarCategoria(codigoCategoria=${categoria.codigoCategoria})}" th:text="${categoria.nomeCategoria.toUpperCase()}"></a>
                             </strong>
+                            <a th:href="@{/deletarCategoria(codigoCategoria=${categproa.codigoCategoria})}" class="text-white text-decoration-none" title="Excluir Categoria e todos os seus produtos" onclick="return confirm('tem certeza que deseja excluir esta categoria e todos os seus pedidos?');">x</a>
                         </div>
                         <div class="card-body">
                             <div th:if="${#ListEmpty(categoria.Produtos)}">
@@ -31,16 +32,20 @@
                             <div th:unless="${#lists.isEmpty(categoria.Produtos)}">
 
                                 <div class="list-group">
-                                    <div th:each="produto: ${categoria.Produtos} class=list-group-item mb-3">
-                                        <p class="mb-1" fw-semibold>
-                                        <span th:text="${categoria.Produtos}"></span>
+                                    <div th:each="produto: ${categoria.Produtos}" class="list-group-item mb-3">
+                                        <div class="d-flex justify-content-between align-itens-start">
+                                        <div>
+                                        <p class="mb-1 fw-semibold">
+                                        <span th:text="${produto.codigoProduto}"></span>
                                         <span> - </span>
-                                        <a th:href="@{/atualizarProduto(codigoProduto=${produto.codigoProduto})}" th:text="${categoria.Produtos}"></a>
+                                        <a th:href="@{/atualizarProduto(codigoProduto=${produto.codigoProduto})}" th:text="${produto.nomeProduto}"></a>
+                                        </div>
                                         <span>: R$: </span>
-                                        <span th:text="${categoria.Produtos}"></span>
+                                        <span th:text="${produto.precoProduto}"></span>
                                     </p>
+                                    </div>
+                                    <a th:href"@{/deletarProduto(codigoProduto=${produto.codigoProduto})}" class="text-danger text-decoration-nonefw-bold" title="Excluir produto" onclick="return confirm('Tem certeza que deseja exlcuir este produto?');">X</a>
                                     <p class="mb-0 text-muted" th:text="${produto.descricaoProduto != null and !#strings.isEmpty(produto.descricaoProduto) ? produto.descricaoProduto : 'Produto sem descrição.'}">
-
                                     </p>                                    
                                 </div>                            
                             </div>
